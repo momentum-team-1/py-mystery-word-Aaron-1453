@@ -36,6 +36,8 @@ The game must be interactive; the flow of the game should go as follows:
    upper or lower case and it should not matter. If a user enters more than one
    letter, tell them the input is invalid and let them try again.
 
+#
+
 4. Let the user know if their guess appears in the computer's word.
 
 5. Display the partially guessed word, as well as letters that have not been
