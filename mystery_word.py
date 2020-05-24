@@ -19,73 +19,77 @@ attempts = 0
 max_attempts = 4
 
 ## loop till the player has won or lost##
-while True:
+is_game_over = False
+while not is_game_over:
 
     # display current board, guessed letters, and attempts remaining
     # just makes the underscores into a string
     hidden_string = " ".join(hidden)
-    print(f"You have {attempts} attempts remaining")
+    print(f"You have {max_attempts - attempts} attempts remaining")
     print(f'The current word is: {hidden_string}')
-    break
-
 # ask for a guess --character-- and if they guess correctly show all matched letters and print message
 
-guess = input("Please guess a letter: ")
-correct_guesses = []
-wrong_guesses = []
-statement = ''
+    guess = input("Please guess a letter: ")
+    correct_guesses = []
+    wrong_guesses = []
+    statement = ''
 
-for i in word:  # i in word is just letter in word but didn't want letter to mean anything but item in word
     if guess in word:
-        print('first block')
-        correct_guesses.append(guess)
-        statement = "got em! here are your correct guesses so far"
+        # Iterate over string with index using range(), string being the letters of the word
+        for i in range(len(word)):
+            # range(len (stringObj) ) function will generate the sequence from 0 to n -1 ( n is size of string) . Now iterate over this sequence and for each index access the character from string using operator
+            character = word[i]  # use those [] to catch each index
+            if character == guess:
+                hidden[i] = word[i]
+                word[i] = "_"
+        print(f'nice guess! "{guess}" is in the word')
+        print(hidden)
+        print(word)
+    elif guess not in word:
+        print(f'Whoops! It looks like "{guess}" is not in this word')
+        attempts += 1
+        print(word)
+    # getting difficulty and random word##
+# running out of underscores has to end the game
+    if (all('_' == char for char in word)):  # i don't see why != isn't used here
+        print("You've done it!")
+        is_game_over = True
+# running out of guesses has to end the game
 
-    if guess not in word:
-        print('second block')
-        wrong_guesses.append(guess)
-        statement = "Too bad! Give it another go!"
-    break
+    if attempts >= max_attempts:
+        print("sorry you are out of guesses and therefore out of time")
+        is_game_over = True
+    # easy_list = [
+    #     word.upper()
+    #     for word in text
+    #     if 4 <= len(word) <= 6
+    # ]
 
-print('correct guesses', correct_guesses)
-print('wrong guesses', wrong_guesses)
-print(statement)
+    # normal_list = [
+    #     word.upper()
+    #     for word in text
+    #     if 6 <= len(word) <= 8
+    # ]
 
-# getting difficulty and random word##
+    # hard_list = [
+    #     word.upper()
+    #     for word in text
+    #     if 8 <= len(word)
+    # ]
 
-# easy_list = [
-#     word.upper()
-#     for word in text
-#     if 4 <= len(word) <= 6
-# ]
+    # def get_difficulty():
+    #     word = ""
+    #     difficulty = input(
+    #         "Please select difficulty level, type e for easy, n for normal, and h for hard")
+    #     if difficulty == "e":
+    #         word = random.choice(easy_list)
+    #     elif difficulty == "n":
+    #         word = random.choice(normal_list)
+    #     elif difficulty == "h":
+    #         word = random.choice(hard_list)
+    #     return word
 
-# normal_list = [
-#     word.upper()
-#     for word in text
-#     if 6 <= len(word) <= 8
-# ]
-
-# hard_list = [
-#     word.upper()
-#     for word in text
-#     if 8 <= len(word)
-# ]
-
-
-# def get_difficulty():
-#     word = ""
-#     difficulty = input(
-#         "Please select difficulty level, type e for easy, n for normal, and h for hard")
-#     if difficulty == "e":
-#         word = random.choice(easy_list)
-#     elif difficulty == "n":
-#         word = random.choice(normal_list)
-#     elif difficulty == "h":
-#         word = random.choice(hard_list)
-#     return word
-
-
-# if __name__ == "__main__":
-#     word = (get_difficulty())
-# print(f"The mystery word is {len(word)} characters long.")
-# print(word)
+    # if __name__ == "__main__":
+    #     word = (get_difficulty())
+    # print(f"The mystery word is {len(word)} characters long.")
+    # print(word)
