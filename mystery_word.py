@@ -18,16 +18,53 @@ for letter in word:
 attempts = 0
 max_attempts = 4
 
+easy_list = [
+    word.upper()
+    for word in text
+    if 4 <= len(word) <= 6
+]
+
+normal_list = [
+    word.upper()
+    for word in text
+    if 6 <= len(word) <= 8
+]
+
+hard_list = [
+    word.upper()
+    for word in text
+    if 8 <= len(word)
+]
+
+
+def get_difficulty():
+    word = ""
+    difficulty = input(
+        "Please select difficulty level, type e for easy, n for normal, and h for hard ")
+    if difficulty == "e":
+        word = random.choice(easy_list)
+    elif difficulty == "n":
+        word = random.choice(normal_list)
+    elif difficulty == "h":
+        word = random.choice(hard_list)
+    return word
+
+
+if __name__ == "__main__":
+    word = (get_difficulty())
+print(f"The mystery word is {len(word)} characters long.")
+print(word)
+
+
 ## loop till the player has won or lost##
 is_game_over = False
 while not is_game_over:
-
     # display current board, guessed letters, and attempts remaining
     # just makes the underscores into a string
     hidden_string = " ".join(hidden)
     print(f"You have {max_attempts - attempts} attempts remaining")
     print(f'The current word is: {hidden_string}')
-# ask for a guess --character-- and if they guess correctly show all matched letters and print message
+    # ask for a guess --character-- and if they guess correctly show all matched letters and print message
 
     guess = input("Please guess a letter: ")
     correct_guesses = []
@@ -50,46 +87,12 @@ while not is_game_over:
         attempts += 1
         print(word)
     # getting difficulty and random word##
-# running out of underscores has to end the game
+    # running out of underscores has to end the game
     if (all('_' == char for char in word)):  # i don't see why != isn't used here
         print("You've done it!")
         is_game_over = True
-# running out of guesses has to end the game
+    # running out of guesses has to end the game
 
     if attempts >= max_attempts:
         print("sorry you are out of guesses and therefore out of time")
         is_game_over = True
-    # easy_list = [
-    #     word.upper()
-    #     for word in text
-    #     if 4 <= len(word) <= 6
-    # ]
-
-    # normal_list = [
-    #     word.upper()
-    #     for word in text
-    #     if 6 <= len(word) <= 8
-    # ]
-
-    # hard_list = [
-    #     word.upper()
-    #     for word in text
-    #     if 8 <= len(word)
-    # ]
-
-    # def get_difficulty():
-    #     word = ""
-    #     difficulty = input(
-    #         "Please select difficulty level, type e for easy, n for normal, and h for hard")
-    #     if difficulty == "e":
-    #         word = random.choice(easy_list)
-    #     elif difficulty == "n":
-    #         word = random.choice(normal_list)
-    #     elif difficulty == "h":
-    #         word = random.choice(hard_list)
-    #     return word
-
-    # if __name__ == "__main__":
-    #     word = (get_difficulty())
-    # print(f"The mystery word is {len(word)} characters long.")
-    # print(word)
