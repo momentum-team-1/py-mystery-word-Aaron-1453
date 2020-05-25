@@ -15,8 +15,8 @@ def get_difficulty():
         word = random.choice(hard_list)
     return word
 
-
 # if __name__ == "__main__":
+
 
 file = open("words.txt", "r")
 text = file.read().split()
@@ -30,7 +30,7 @@ text = file.read().split()
 
 
 attempts = 0
-max_attempts = 4
+max_attempts = 8
 
 
 easy_list = [
@@ -103,9 +103,20 @@ while not is_game_over:
     # running out of underscores has to end the game
     if (all('_' == char for char in word)):  # i don't see why != isn't used here
         print("You've done it!")
-        is_game_over = True
+        answer = "".join(hidden)
+        print(f"The word was '{answer}' all along!")
+        restart = input("would you like to play again? Y / N")
+        if restart == "Y":
+            continue
+        if restart == "N":
+            is_game_over = True
+
     # running out of guesses has to end the game
 
     if attempts >= max_attempts:
         print("sorry you are out of guesses and therefore out of time")
-        is_game_over = True
+        restart = input("would you like to play again? Y/N ")
+        if restart == "Y":
+            continue
+        if restart == "N":
+            is_game_over = True
